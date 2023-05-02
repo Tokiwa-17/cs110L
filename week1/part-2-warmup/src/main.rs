@@ -7,17 +7,20 @@ fn main() {
 }
 
 fn add_n(v: Vec<i32>, n: i32) -> Vec<i32> {
-    let mut _v: Vec<i32> = Vec::new();
-    for val in v.iter() {
-        _v.push(val + n);
+    let mut v_: Vec<i32> = Vec::new();
+    for i in v {
+        v_.push(i + n);
     }
-    return _v;
+    return v_;
 }
 
 fn add_n_inplace(v: &mut Vec<i32>, n: i32) {
-   for i in v.iter_mut() {
-        *i += n;
-   }
+    let len = v.len();
+    let mut i = 0;
+    while i < len {
+        v[i] += n;
+        i += 1;
+    }
 }
 
 fn dedup(v: &mut Vec<i32>) {
