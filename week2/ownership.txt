@@ -9,7 +9,7 @@ fn main() {
     println!("{}", ref3.to_uppercase());
 }
 ```
-
+No, an immutable reference cannot be utilized after changing the content that is pointed to by the reference.
 
 
 Example 2:
@@ -19,6 +19,7 @@ fn drip_drop() -> &String {
     return &s;
 }
 ```
+Like hanging pointers in C++, s will be destroyed after quit this function.
 
 
 

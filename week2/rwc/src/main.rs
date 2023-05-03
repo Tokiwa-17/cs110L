@@ -8,5 +8,11 @@ fn main() {
         process::exit(1);
     }
     let filename = &args[1];
-    // Your code here :)
+    let file = File::open(filename)?;
+    let mut lines: Vec<String> = Vec::new();
+    for line in io::BufReader::new(file).lines() {
+        let line = line?;
+        lines.push(line);
+    }
 }
+
