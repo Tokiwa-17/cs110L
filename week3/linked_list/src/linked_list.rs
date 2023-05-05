@@ -5,7 +5,7 @@ pub struct LinkedList<T> {
     head: Option<Box<Node<T>>>,
     size: usize,
 }
-
+//#[derive(Debug, Clone)]
 struct Node<T> {
     value: T,
     next: Option<Box<Node<T>>>,
@@ -71,5 +71,50 @@ impl <T> Drop for LinkedList<T>{
     }
 }
 
+impl <T: Clone> Clone for Node<T> {
+    fn clone(&self) -> Self {
+        Node {
+            value: self.value.clone(),
+            next: self.next.clone(),
+        }
+    }
+}
+
+impl <T: Clone> Clone for LinkedList<T> {
+    fn clone(&self) -> LinkedList<T> {
+        LinkedList {head: self.head.clone(), size: self.size}
+    }
+}
+
+impl <T: PartialEq> PartialEq for Node<T> {
+    fn eq(&self, other: &Self) -> bool {
+        self.value == other.value && self.next == other.next
+    }
+}
+
+impl <T: PartialEq> PartialEq for LinkedList<T> {
+    fn eq(&self, other: &Self) -> bool {
+        let mut result: bool = true;
+        if self.size != other.size {
+            result = false;
+        }
+        let mut self_current: &Option<Box<Node<T>>> = &self.head;
+        let mut other_current: &Option<Box<Node<T>>> = &other.head;
+        match (self_current, other_current) {
+            (Some(node1), Some(node2)) => {
+                if *node1 != *node2 {
+                    result = false;
+                }
+            }
+            (None, None) => {
+                result = false;
+            }
+            (_, _) => {
+                result = false;
+            }
+        }
+        result
+    }
+}
 
 
