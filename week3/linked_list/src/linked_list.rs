@@ -117,4 +117,29 @@ impl <T: PartialEq> PartialEq for LinkedList<T> {
     }
 }
 
+pub trait ComputeNorm {
+    fn compute_norm(&self) -> f64 {
+        0.0
+    }
+}
+
+impl ComputeNorm for LinkedList<f64> {
+    fn compute_norm(&self) -> f64 {
+        let mut result: f64 = 0.0;
+        let mut current: &Option<Box<Node<f64>>> = &self.head;
+        loop {
+           match current {
+               Some(node) => {
+                   result += node.value.powi(2);
+                   current = &node.next;
+               }
+               None => {
+                   break;
+               }
+           }
+        }
+        result.powf(0.5)
+    }
+}
+
 
